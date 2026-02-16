@@ -1,8 +1,17 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const links = document.querySelectorAll('.nav-link');
-    const pages = document.querySelectorAll('.page-content');
-    const heroTitle = document.querySelector('.content h1');
+// FUNÇÃO PRINCIPAL
 
+// Aguarda o HTML carregar antes de rodar o script
+document.addEventListener("DOMContentLoaded", function() {
+
+    // Seleção de elementos
+    const links = document.querySelectorAll('.nav-link'); // Links do menu
+    const pages = document.querySelectorAll('.page-content'); // Seções de texto
+    const heroTitle = document.querySelector('.content h1'); // Título
+    
+    const learnMoreBtn = document.getElementById('learn-more-btn'); // Botão Learn More
+    const pagesContainer = document.getElementById('pages-container'); // Container do conteúdo
+
+    // Títulos
     const titles = [
         "NEW YORK",
         "STATUE OF LIBERTY",
@@ -12,11 +21,11 @@ document.addEventListener("DOMContentLoaded", function() {
         "BROADWAY"
     ];
 
-    // Adicionamos o shouldScroll = true por padrão
+    // "Troca" a página ao esconder e mostrar seções específicas
     function changePage(index, shouldScroll = true) {
         index = parseInt(index); 
 
-        // 1. Só reseta o Scroll se o clique veio do menu (shouldScroll for true)
+        // Sobe a página até o hero ao trocar de seção
         if (shouldScroll) {
             window.scrollTo({
                 top: 0,
@@ -24,18 +33,20 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 
-        // 2. Limpa classes ativas
+        // Remove todos os "active" antes de trocar de seção
         links.forEach(link => link.classList.remove('active'));
         pages.forEach(page => page.classList.remove('active'));
 
-        // 3. Ativa o link e a página
+        // Colocar o "active" na seção que deve ser mostrada
         if(links[index]) links[index].classList.add('active');
-        
+
+        // Procura a seção pelo ID e a torna visível
         const targetPage = document.getElementById(`page-${index}`);
         if (targetPage) {
             targetPage.classList.add('active');
         }
 
+        // Animação do título
         if (heroTitle) {
             heroTitle.classList.remove('animate-title');
             heroTitle.innerText = titles[index];
@@ -43,28 +54,46 @@ document.addEventListener("DOMContentLoaded", function() {
             heroTitle.classList.add('animate-title');
         }
 
-        // 4. Salva o índice na URL
+        // Atualiza o endereço do navegador, faz o refresh ficar na parte específica ao invés de voltar ao início do site
         window.location.hash = index;
     }
 
-    // Evento de Clique: aqui o scroll deve acontecer (comportamento padrão)
+    // Ao clicar no "learn more", ele te move para a seção de texto fora do hero
+    if (learnMoreBtn && pagesContainer) {
+        learnMoreBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const navHeight = document.querySelector('.nav').offsetHeight;
+            const targetPosition = pagesContainer.offsetTop - navHeight;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Adiciona o evento de clique em todos os links da navegação
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const index = this.getAttribute('data-index');
-            changePage(index); // shouldScroll é true
+            changePage(index);
         });
     });
 
-    // LÓGICA DE REFRESH: aqui passamos 'false' para o scroll não resetar
+    // Arruma o refresh, sem voltar para a home
     const currentHash = window.location.hash.replace('#', '');
     if (currentHash !== "" && !isNaN(currentHash)) {
-        changePage(currentHash, false); // Muda o conteúdo, mas mantém a posição do scroll
+        changePage(currentHash, false);
     } else {
         changePage(0, false); 
     }
 });
 
+
+
+// -------------------------------------------------------------------------------------
 
 // NavBar sólida ao sair do hero
 
