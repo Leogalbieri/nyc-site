@@ -49,22 +49,16 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateVideo(index) {
         if (videoPlayer && videoSources[index]) {
 
-            // Inicia o fade
-            videoPlayer.classList.add('video-fade');
+            // Define o poster
+            videoPlayer.poster = videoPosters[index]; 
 
-            setTimeout(() => {
-                // Coloca o 1° frame do vídeo como poster
-                videoPlayer.poster = videoPosters[index];
-
-                videoPlayer.src = videoSources[index];
-                videoPlayer.load();
-
-                videoPlayer.oncanplay = () => {
-                    videoPlayer.play()
-
-                    videoPlayer.classList.remove('video-fade');
-                };
-            }, 10);
+            // Começa a carregar o vídeo
+            videoPlayer.src = videoSources[index];
+            
+            // O load() "limpa" a tela e mostra o poster
+            videoPlayer.load(); 
+            
+            videoPlayer.play();
         }
     }
 

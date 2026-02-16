@@ -159,12 +159,6 @@
   object-fit: cover;
   background-color: #000;
 
-  transition: opacity 0.5s ease-in-out;
-  opacity: 1;
-}
-
-.video-fade{
-  opacity: 0;
 }
 
 
