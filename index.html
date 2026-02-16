@@ -8,9 +8,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="src/css/main.css"/>
 
-    <!-- JS -->
-     <script defer src="src/js/main.js"></script>
-
 </head>
 <body>
     <div class="hero">
@@ -19,21 +16,97 @@
             <source src="assets/videos/test_video.mp4" type="video/mp4">
         </video>
 
-        <nav>
-            <img src="assets/img/logo.png" class="logo">
+        <nav class="nav">
             <ul>
-                <li><a href="#">HOME</a></li>
-                <li><a href="#">STATUE OF LIBERTY</a></li>
-                <li><a href="#">TIMES SQUARE</a></li>
-                <li><a href="#">CENTRAL PARK</a></li>
-                <li><a href="#">EMPIRE STATE</a></li>
-                <li><a href="#">BROADWAY</a></li>
+                <li><a href="#page-0" class="nav-link" data-index="0">HOME</a></li>
+                <li><a href="#page-1" class="nav-link" data-index="1">STATUE OF LIBERTY</a></li>
+                <li><a href="#page-2" class="nav-link" data-index="2">TIMES SQUARE</a></li>
+                <li><a href="#page-3" class="nav-link" data-index="3">CENTRAL PARK</a></li>
+                <li><a href="#page-4" class="nav-link" data-index="4">EMPIRE STATE</a></li>
+                <li><a href="#page-5" class="nav-link" data-index="5">BROADWAY</a></li>
             </ul>
         </nav>
+
+        <a class="logo" href="#">
+            <img src="assets/img/logo.png" alt="Logo">
+        </a>
+
         <div class="content">
             <h1>NEW YORK</h1>
-            <a href="#">Explore</a>
+            <a href="#">LEARN MORE</a>
         </div>
     </div>
+
+    <div id="pages-container">
+
+        <!-- HOME (NEW YORK) -->
+
+        <section class="page-content active" id="page-0">
+            <div class="container">
+                <div class="text-box">
+                    <span>Welcome to</span>
+                    <h2>The Big Apple</h2>
+                    <p>Nova York não é apenas uma cidade, é um universo. De Wall Street ao Central Park, cada esquina conta uma história de ambição e cultura. Explore os marcos que definem o horizonte mais famoso do mundo.</p>
+                </div>
+                <div class="image-placeholder">
+                    <img src="assets/img/nyc-general.jpg" alt="NYC Skyline">
+                </div>
+            </div>
+        </section>
+
+        <!-- STATUE OF LIBERTY -->
+
+        <section class="page-content" id="page-1">
+            <div class="container">
+                <div class="text-box">
+                    <span>The Icon of</span>
+                    <h2>Liberty Island</h2>
+                    <p>Um presente da França para os Estados Unidos, a Estátua da Liberdade tornou-se o símbolo máximo de esperança. Com 93 metros de altura, ela observa o Atlântico, guardando a entrada do porto de Nova York.</p>
+                    <ul class="stats">
+                        <li><strong>Altura:</strong> 93 metros</li>
+                        <li><strong>Inauguração:</strong> 1886</li>
+                    </ul>
+                </div>
+                <div class="image-placeholder">
+                    <img src="assets/img/liberty-detail.jpg" alt="Statue of Liberty">
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMES SQUARE -->
+
+        <section class="page page-content" id="page-2">
+
+        </section>
+
+        <!-- CENTRAL PARK -->
+
+        <section class="page page-content" id="page-3">
+
+        </section>
+
+        <!-- EMPIRE STATE -->
+
+        <section class="page page-content" id="page-4">
+
+        </section>
+
+        <!-- BROADWAY -->
+
+        <section class="page page-content" id="page-5">
+
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+        © 2026 Leonardo Corredori Galbieri
+    </footer>
+
+    <!-- JS -->
+     <script src="src/js/main.js"></script>
+
 </body>
 </html>
