@@ -100,7 +100,15 @@
   border: 2px solid #fff;
   padding: 14px 70px;
   border-radius: 50px;
-  margin-top: 20px;
+  margin-top: 40px;
+  transition: all 0.3s ease;
+}
+
+.content a:hover{
+  background-color: #fff;
+  color: #000;
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .back-video{
