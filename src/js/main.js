@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const links = document.querySelectorAll('.nav-link'); // Links do menu
     const pages = document.querySelectorAll('.page-content'); // Seções de texto
     const heroTitle = document.querySelector('.content h1'); // Título
+    const videoPlayer = document.getElementById('bg-video'); // Seleciona o vídeo de fundo
+    const heroSection = document.querySelector('.hero');
     
     const learnMoreBtn = document.getElementById('learn-more-btn'); // Botão Learn More
     const pagesContainer = document.getElementById('pages-container'); // Container do conteúdo
@@ -18,19 +20,69 @@ document.addEventListener("DOMContentLoaded", function() {
         "TIMES SQUARE",
         "CENTRAL PARK",
         "EMPIRE STATE",
-        "BROADWAY"
+        "BROOKLYN BRIDGE"
     ];
+
+     // Vídeos
+    const videoSources = [
+        "assets/videos/nyc.mp4",
+        "assets/videos/statue_of_liberty.mp4",
+        "assets/videos/times_square.mp4",
+        "assets/videos/central_park.mp4",
+        "assets/videos/empire_state.mp4",
+        "assets/videos/brooklyn_bridge.mp4"
+    ];
+
+    // Primeiro frame do vídeo para evitar fundo preto
+    const videoPosters = [
+        "assets/img/nyc.png",
+        "assets/img/statue_of_liberty.png",
+        "assets/img/times_square.png",
+        "assets/img/central_park.png",
+        "assets/img/empire_state.png",
+        "assets/img/brooklyn_bridge.png"
+    ];
+
+
+
+    // Função troca vídeo
+    function updateVideo(index) {
+        if (videoPlayer && videoSources[index]) {
+
+            // Inicia o fade
+            videoPlayer.classList.add('video-fade');
+
+            setTimeout(() => {
+                // Coloca o 1° frame do vídeo como poster
+                videoPlayer.poster = videoPosters[index];
+
+                videoPlayer.src = videoSources[index];
+                videoPlayer.load();
+
+                videoPlayer.oncanplay = () => {
+                    videoPlayer.play()
+
+                    videoPlayer.classList.remove('video-fade');
+                };
+            }, 10);
+        }
+    }
+
+
 
     // "Troca" a página ao esconder e mostrar seções específicas
     function changePage(index, shouldScroll = true) {
         index = parseInt(index); 
+        
+        // Chama a função para trocar o vídeo de fundo
+        updateVideo(index);
 
         // Sobe a página até o hero ao trocar de seção
         if (shouldScroll) {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            const heroSection = document.querySelector('.hero');
+            if (heroSection) {
+                heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         // Remove todos os "active" antes de trocar de seção
@@ -58,6 +110,20 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.hash = index;
     }
 
+
+
+    // Troca o vídeo quando acabar
+    if (videoPlayer) {
+        videoPlayer.addEventListener('ended', function() {
+            let currentIndex = parseInt(window.location.hash.replace('#', '')) || 0;
+            let nextIndex = (currentIndex + 1) % titles.length;
+
+            changePage(nextIndex, true);
+        });
+    }
+
+
+
     // Ao clicar no "learn more", ele te move para a seção de texto fora do hero
     if (learnMoreBtn && pagesContainer) {
         learnMoreBtn.addEventListener('click', function(e) {
@@ -73,6 +139,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+
+
     // Adiciona o evento de clique em todos os links da navegação
     links.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -82,6 +150,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+
+
     // Arruma o refresh, sem voltar para a home
     const currentHash = window.location.hash.replace('#', '');
     if (currentHash !== "" && !isNaN(currentHash)) {
@@ -89,6 +159,40 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
         changePage(0, false); 
     }
+
+
+
+    // Se o hero for mais de 10% visível, o vídeo troca de seção. Se for menos que 10% visível, o vídeo roda em loop. Se não for visível, o vídeo pausa.
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!videoPlayer) return;
+
+            // Caso 1: Mais de 10% visível -> troca de seção
+            if (entry.intersectionRatio > 0.1) {
+                videoPlayer.loop = false; 
+                videoPlayer.play().catch(e => {});
+            } 
+            // Caso 2: Entre 1% e 10% visível -> vídeo em loop
+            else if (entry.intersectionRatio > 0 && entry.intersectionRatio <= 0.1) {
+                videoPlayer.loop = true;
+                videoPlayer.play().catch(e => {});
+            }
+            // Caso 3: 0% visível -> vídeo pausado
+            else {
+                videoPlayer.pause();
+            }
+        });
+    }, {
+        // Detecção da visibilidade do hero
+        threshold: [0, 0.01, 0.1, 1.0] 
+    });
+
+    if (heroSection) {
+        observer.observe(heroSection);
+    }
+
+
+
 });
 
 
@@ -106,3 +210,4 @@ window.addEventListener('scroll', () => {
         navEl.classList.remove('nav-scrolled');
     }
 })
+
