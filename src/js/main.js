@@ -106,5 +106,3 @@ window.addEventListener('scroll', () => {
         navEl.classList.remove('nav-scrolled');
     }
 })
-
-

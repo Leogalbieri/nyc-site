@@ -1,9 +1,4 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
+/* HERO */
 
 .hero{
   width: 100%;
@@ -85,6 +80,10 @@
   background-color: #fff;
 }
 
+
+
+/* LOGO */
+
 .logo{
   position: absolute;
   right: 2%;
@@ -97,6 +96,10 @@
   height: 120px;      /* controla o tamanho */
   display: block;
 }
+
+
+
+/* TÍTULO PRINCIPAL */
 
 .content{
   text-align: center;
@@ -118,6 +121,10 @@
   color: transparent;
 }
 
+
+
+/* BOTÃO "LEARN MORE" */
+
 .content a{
   text-decoration: none;
   display: inline-block;
@@ -137,12 +144,20 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
+
+
+/* VÍDEO DE FUNDO */
+
 .back-video{
   position: absolute;
   right: 0;
   bottom: 0;
   z-index: -1;
 }
+
+
+
+/* MOBILE */
 
 @media (min-aspect-ratio: 16/9){
   .back-video{

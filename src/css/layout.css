@@ -1,13 +1,15 @@
-/* Container das páginas */
+/* SEÇÕES */
+
+/* Contâiner das páginas */
 #pages-container {
     background: #0a0a0a;
     color: #fff;
     width: 100%;
 }
 
-/* Estilo base de cada "página" */
+/* Estilo base de cada "página", escondida por padrão */
 .page-content {
-    display: none; /* Escondido por padrão */
+    display: none;
     min-height: 100vh; 
     padding: 100px 8%;
 }
