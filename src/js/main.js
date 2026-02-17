@@ -282,3 +282,37 @@ window.addEventListener('scroll', () => {
     }
 })
 
+
+
+// HAMBÚRGUER
+
+const nav = document.querySelector('.nav');
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelectorAll('.nav-link');
+const learnMoreBtn = document.getElementById('learn-more-btn');
+
+// Função para abrir/fechar nav
+function toggleMenu() {
+    nav.classList.toggle('active');
+}
+
+// Fechar ao clicar em qualquer link do menu
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        nav.classList.remove('active');
+    });
+});
+
+// Fechar ao clicar no botão Learn More
+learnMoreBtn.addEventListener('click', () => {
+    nav.classList.remove('active');
+});
+
+// Fechar ao clicar fora da nav
+document.addEventListener('click', (e) => {
+    // Se a nav estiver aberta, e o clique não for no nav nem no hamburger
+    if(nav.classList.contains('active') && !nav.contains(e.target) && !hamburger.contains(e.target)){
+        nav.classList.remove('active');
+    }
+});
+
