@@ -1,3 +1,8 @@
+// Desabilitar reset de scroll do navegador
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+
 // FUNÇÃO PRINCIPAL
 
 // Aguarda o HTML carregar antes de rodar o script
@@ -106,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-    // Troca o vídeo quando acabar
+    // Troca a seção quando o vídeo acabar
     if (videoPlayer) {
         videoPlayer.addEventListener('ended', function() {
             let currentIndex = parseInt(window.location.hash.replace('#', '')) || 0;
@@ -146,13 +151,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-    // Arruma o refresh, sem voltar para a home
+// 1. CAPTURA A POSIÇÃO ANTES DE MUDAR QUALQUER COISA
     const currentHash = window.location.hash.replace('#', '');
+    const savedScrollPos = sessionStorage.getItem('retainedScroll') || window.scrollY;
+
+    // 2. FUNÇÃO PARA RESTAURAR SEM PULO
+    const restoreScroll = () => {
+        window.scrollTo(0, savedScrollPos);
+    };
+
     if (currentHash !== "" && !isNaN(currentHash)) {
+        // 'false' para não dar scroll automático do changePage
         changePage(currentHash, false);
     } else {
         changePage(0, false); 
     }
+
+    // 3. O PULO DO GATO: Forçamos o scroll várias vezes nos primeiros milissegundos
+    // Isso combate o "atraso" do carregamento do vídeo que empurra a página
+    restoreScroll();
+    setTimeout(restoreScroll, 10);
+    setTimeout(restoreScroll, 50);
+    setTimeout(restoreScroll, 100);
+
+    // Salva a posição ao scrollar para garantir que o refresh saiba onde voltar
+    window.addEventListener('scroll', () => {
+        sessionStorage.setItem('retainedScroll', window.scrollY);
+    });
 
 
 
