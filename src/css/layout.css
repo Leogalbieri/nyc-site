@@ -71,6 +71,17 @@
     position: relative;
 }
 
+.timeline-row {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.timeline-row.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Alternância entre texto e imagem */
 .timeline-row.left { flex-direction: row; }
 .timeline-row.right { flex-direction: row-reverse; }

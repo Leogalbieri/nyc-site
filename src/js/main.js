@@ -212,6 +212,58 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+    // ANIMAÇÃO DAS SEÇÕES E RESET
+    let isScrollingToTop = false;
+
+    const revealRow = new IntersectionObserver((entries) => {
+        if (isScrollingToTop) return;
+
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal');
+                revealRow.unobserve(entry.target); 
+            }
+        });
+    }, { 
+        threshold: 0.05, 
+        rootMargin: "0px 0px -10% 0px" 
+    });
+
+    function resetAndInitReveal() {
+        isScrollingToTop = true;
+        
+        document.querySelectorAll('.timeline-row').forEach(row => {
+            row.classList.remove('reveal');
+            revealRow.unobserve(row); // Para de observar tudo para limpar o cache
+        });
+
+        // Tempo para o scroll chegar no topo
+        setTimeout(() => {
+            isScrollingToTop = false;
+
+            document.querySelectorAll('.timeline-row').forEach((row, index) => {
+                revealRow.observe(row);
+
+                // Se for o primeiro ou segundo item e já estiver aparecendo um pedaço dele, força a revelação
+                const rect = row.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    row.classList.add('reveal');
+                    revealRow.unobserve(row);
+                }
+            });
+        }, 850);
+    }
+
+    // Conecta aos links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', resetAndInitReveal);
+    });
+
+    // Inicialização
+    resetAndInitReveal();
+
+    
+
 });
 
 
