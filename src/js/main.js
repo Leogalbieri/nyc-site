@@ -156,18 +156,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-    // Se o hero for mais de 10% visível, o vídeo troca de seção. Se for menos que 10% visível, o vídeo roda em loop. Se não for visível, o vídeo pausa.
+    // Se o hero for mais de 50% visível, o vídeo troca de seção. Se for menos que 10% visível, o vídeo roda em loop. Se não for visível, o vídeo pausa.
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!videoPlayer) return;
 
             // Caso 1: Mais de 10% visível -> troca de seção
-            if (entry.intersectionRatio > 0.1) {
+            if (entry.intersectionRatio > 0.5) {
                 videoPlayer.loop = false; 
                 videoPlayer.play().catch(e => {});
             } 
-            // Caso 2: Entre 1% e 10% visível -> vídeo em loop
-            else if (entry.intersectionRatio > 0 && entry.intersectionRatio <= 0.1) {
+            // Caso 2: Entre 1% e 50% visível -> vídeo em loop
+            else if (entry.intersectionRatio > 0 && entry.intersectionRatio <= 0.5) {
                 videoPlayer.loop = true;
                 videoPlayer.play().catch(e => {});
             }
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }, {
         // Detecção da visibilidade do hero
-        threshold: [0, 0.01, 0.1, 1.0] 
+        threshold: [0, 0.01, 0.5, 1.0] 
     });
 
     if (heroSection) {
