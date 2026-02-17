@@ -52,19 +52,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Função troca vídeo
     function updateVideo(index) {
-        if (videoPlayer && videoSources[index]) {
+        if (!videoPlayer || !videoSources[index]) return;
 
-            // Define o poster
-            videoPlayer.poster = videoPosters[index]; 
+        videoPlayer.poster = videoPosters[index];
+        videoPlayer.src = videoSources[index];
 
-            // Começa a carregar o vídeo
-            videoPlayer.src = videoSources[index];
-            
-            // O load() "limpa" a tela e mostra o poster
-            videoPlayer.load(); 
-            
-            videoPlayer.play();
-        }
+        const p = videoPlayer.play();
+        if (p && p.catch) p.catch(() => {});
     }
 
 
