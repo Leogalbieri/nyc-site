@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
      // Vídeos
     const videoSources = [
-        "assets/videos/nyc.mp4",
-        "assets/videos/statue_of_liberty.mp4",
-        "assets/videos/times_square.mp4",
-        "assets/videos/central_park.mp4",
-        "assets/videos/empire_state.mp4",
-        "assets/videos/brooklyn_bridge.mp4"
+        "assets/videos/nyc.mp4?v=2",
+        "assets/videos/statue_of_liberty.mp4?v=2",
+        "assets/videos/times_square.mp4?v=2",
+        "assets/videos/central_park.mp4?v=2",
+        "assets/videos/empire_state.mp4?v=2",
+        "assets/videos/brooklyn_bridge.mp4?v=2"
     ];
 
     // Primeiro frame do vídeo para evitar fundo preto
