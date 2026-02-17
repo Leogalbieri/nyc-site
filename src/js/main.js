@@ -40,12 +40,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Primeiro frame do vídeo para evitar fundo preto
     const videoPosters = [
-        "assets/img/nyc.png",
-        "assets/img/statue_of_liberty.png",
-        "assets/img/times_square.png",
-        "assets/img/central_park.png",
-        "assets/img/empire_state.png",
-        "assets/img/brooklyn_bridge.png"
+        "assets/img/nyc.webp",
+        "assets/img/statue_of_liberty.webp",
+        "assets/img/times_square.webp",
+        "assets/img/central_park.webp",
+        "assets/img/empire_state.webp",
+        "assets/img/brooklyn_bridge.webp"
     ];
 
 
