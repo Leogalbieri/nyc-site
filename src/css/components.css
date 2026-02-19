@@ -24,11 +24,11 @@
 /* NAV BAR */
 
 .nav{
-  width: 55%;
+  width: auto;
   position: fixed;
   top: 0;
   left: 0;
-  padding: 20px 4%;
+  padding: 20px 6%;
   display: flex;
   align-items: center;
   justify-content: left;
